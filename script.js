@@ -97,3 +97,54 @@ function showToast(message, type = "success") {
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/*========== Gallery ==========*/
+/* const images = document.querySelectorAll('.gallery-img');
+  const modalImage = document.getElementById('modalImage');
+  const imageModal = new bootstrap.Modal(
+    document.getElementById('imageModal')
+  );
+
+  images.forEach(img => {
+    img.addEventListener('click', () => {
+      modalImage.src = img.src;
+      imageModal.show();
+    });
+  }); */
+
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', function () {
+    const modalImg = document.getElementById('previewImage');
+    modalImg.src = this.src;
+
+    const modal = new bootstrap.Modal(
+      document.getElementById('imageModal')
+    );
+    modal.show();
+  });
+});
+
+
+
+
+function bindGalleryClicks() {
+  document.querySelectorAll('.gallery-item img').forEach(img => {
+    img.onclick = function () {
+      const modalImg = document.getElementById('previewImage');
+      modalImg.src = this.src;
+
+      const modal = new bootstrap.Modal(
+        document.getElementById('imageModal')
+      );
+      modal.show();
+    };
+  });
+}
+
+/* Initial load */
+bindGalleryClicks();
+
+/* Rebind after tab change */
+document.querySelectorAll('[data-bs-toggle="pill"]').forEach(tab => {
+  tab.addEventListener('shown.bs.tab', bindGalleryClicks);
+});
